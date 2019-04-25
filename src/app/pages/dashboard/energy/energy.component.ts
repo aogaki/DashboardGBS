@@ -45,7 +45,6 @@ export class EnergyComponent implements OnInit, OnDestroy {
           'fit'
         ].replace(/aogaki_/g, '$');
         const obj = JSROOT.parse(result);
-        console.log(obj);
         JSROOT.draw('histDrawing', obj, 'hist');
 
         const date = new Date(

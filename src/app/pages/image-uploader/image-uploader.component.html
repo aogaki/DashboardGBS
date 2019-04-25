@@ -1,0 +1,64 @@
+    <nb-card>
+      <nb-card-header>Beam position uploader</nb-card-header>
+      <nb-card-body>
+        <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <span>
+              <h4>Beam Spot Image</h4>
+            </span>
+            <div>
+              <button type="button" id="img2D" class="btn btn-warning aogaki" (click)="filePicker2D.click()">Pick 2D
+                Image</button>
+              <input type="file" #filePicker2D id="img2D" (change)="onFileChange($event)">
+            </div>
+            <div class="image-preview" *ngIf="formGroup.value.img2D !== null">
+              <img [src]="formGroup.value.img2D">
+            </div>
+            <input type="text" class="form-control" id="comment2D" formControlName="comment2D"
+              placeholder="Comment for 2D image">
+          </div>
+          <hr>
+          <div class="form-group">
+            <span>
+              <h4>Horizontal Projection</h4>
+            </span>
+            <div>
+              <button type="button" id="imgH" class="btn btn-warning aogaki" (click)="filePickerH.click()">Pick
+                Horizontal Image</button>
+              <input type="file" #filePickerH id="imgH" (change)="onFileChange($event)">
+            </div>
+            <div class="image-preview" *ngIf="formGroup.value.imgH !== null">
+              <img [src]="formGroup.value.imgH">
+            </div>
+            <input type="text" class="form-control" id="commentH" formControlName="commentH"
+              placeholder="Comment for horizontal image">
+          </div>
+          <hr>
+          <div class="form-group">
+            <span>
+              <h4>Vertical Image</h4>
+            </span>
+            <div>
+              <button type="button" id="imgV" class="btn btn-warning aogaki" (click)="filePickerV.click()">Pick Vertical
+                Image</button>
+              <input type="file" #filePickerV id="imgV" (change)="onFileChange($event)">
+            </div>
+            <div class="image-preview" *ngIf="formGroup.value.imgV !== null">
+              <img [src]="formGroup.value.imgV">
+            </div>
+            <input type="text" class="form-control" id="commentV" formControlName="commentV"
+              placeholder="Comment for vertical image">
+          </div>
+          <hr>
+          <div class="form-group">
+            <label for="commentAll">Comment</label>
+            <textarea rows="5" nbInput fullWidth id="commentAll" formControlName="commentAll"
+              placeholder="Something happy comments"></textarea>
+          </div>
+          <button type="submit" [disabled]="formGroup.invalid" class=" btn btn-danger">Submit</button>
+        </form>
+      </nb-card-body>
+    </nb-card>
+    <!-- <p>
+      {{ formGroup.value | json }}
+    </p> -->

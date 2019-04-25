@@ -1,21 +1,25 @@
 import { Injectable } from '@angular/core';
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpClientService {
+  private httpOptions: any = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    }),
+    body: null
+  };
   private headers: any = new Headers({ 'Content-Type': 'application/json' });
-  // private host: string = 'http://localhost:4200/api';
-  // private host: string = 'http://localhost:8000/';
   private host: string = 'http://192.168.161.73:8000/';
 
   constructor(private http: HttpClient) {}
 
   public getPosition(): Promise<any[]> {
     return this.http
-      .get(this.host + '/GBS/GetAll', this.headers)
+      .get(this.host + '/GBS/GetPosition', this.headers)
       .toPromise()
       .then(res => {
         const response: any = res;
@@ -49,6 +53,28 @@ export class HttpClientService {
   public getTest(): Promise<any[]> {
     return this.http
       .get(this.host + '/GBS/GetTest', this.headers)
+      .toPromise()
+      .then(res => {
+        const response: any = res;
+        return response;
+      })
+      .catch(this.errorHandler);
+  }
+
+  public postPosition(body: any): Promise<any[]> {
+    return this.http
+      .post(this.host + 'GBS/PostPosition', body, this.httpOptions.headers)
+      .toPromise()
+      .then(res => {
+        const response: any = res;
+        return response;
+      })
+      .catch(this.errorHandler);
+  }
+
+  public postExpLog(body: any): Promise<any[]> {
+    return this.http
+      .post(this.host + 'GBS/PostExpLog', body, this.httpOptions.headers)
       .toPromise()
       .then(res => {
         const response: any = res;

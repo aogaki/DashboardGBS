@@ -7,25 +7,26 @@ import { AnalyticsService } from '../../../@core/utils/analytics.service';
 @Component({
   selector: 'ngx-header',
   styleUrls: ['./header.component.scss'],
-  templateUrl: './header.component.html',
+  templateUrl: './header.component.html'
 })
 export class HeaderComponent implements OnInit {
-
   @Input() position = 'normal';
 
   user: any;
 
   userMenu = [{ title: 'Profile' }, { title: 'Log out' }];
 
-  constructor(private sidebarService: NbSidebarService,
-              private menuService: NbMenuService,
-              private userService: UserService,
-              private analyticsService: AnalyticsService) {
-  }
+  constructor(
+    private sidebarService: NbSidebarService,
+    private menuService: NbMenuService,
+    private userService: UserService,
+    private analyticsService: AnalyticsService
+  ) {}
 
   ngOnInit() {
-    this.userService.getUsers()
-      .subscribe((users: any) => this.user = users.nick);
+    this.userService
+      .getUsers()
+      .subscribe((users: any) => (this.user = users.nick));
   }
 
   toggleSidebar(): boolean {

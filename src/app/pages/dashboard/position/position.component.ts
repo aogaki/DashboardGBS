@@ -1,17 +1,22 @@
 import { Component, OnDestroy } from '@angular/core';
 import { HttpClientService } from '../../../services/http-client.service';
 import { NbThemeService } from '@nebular/theme';
+import { combineAll } from 'rxjs/operators';
 
-class Image {
+class PosImage {
   source: string;
   content: string;
 }
 
-class Post {
+export interface Post {
   id: string;
-  title: string;
-  content: string;
-  imagePath: string;
+  img2D: string;
+  comment2D: string;
+  imgH: string;
+  commentH: string;
+  imgV: string;
+  commentV: string;
+  commentAll: string;
 }
 
 @Component({
@@ -20,18 +25,18 @@ class Post {
   styleUrls: ['./position.component.scss']
 })
 export class PositionComponent implements OnDestroy {
-  public posts: Post[] = [];
-
   // Hmm Looks stupid
-  private image2D: Image;
-  private imageH: Image;
-  private imageV: Image;
-  public figSumList: Image[] = [];
+  private post: Post;
+  private image2D: PosImage;
+  private imageH: PosImage;
+  private imageV: PosImage;
+  public figSumList: PosImage[] = [];
 
   currentTheme: string;
   themeSubscription: any;
   isSingleView = false;
-  selectedCamera: Image;
+  selectedCamera: PosImage;
+  commentAll: string;
 
   constructor(
     private httpClientService: HttpClientService,
@@ -44,27 +49,24 @@ export class PositionComponent implements OnDestroy {
     this.httpClientService
       .getPosition()
       .then(response => {
-        this.posts = response;
+        this.post = response[response.length - 1];
 
-        this.image2D = new Image();
-        this.imageH = new Image();
-        this.imageV = new Image();
+        this.image2D = new PosImage();
+        this.imageH = new PosImage();
+        this.imageV = new PosImage();
 
-        for (const post of this.posts) {
-          if (post.title === '2D image') {
-            this.image2D.source = post.imagePath;
-            this.image2D.content = '2D: ' + post.content;
-          } else if (post.title === 'Horizontal image') {
-            this.imageH.source = post.imagePath;
-            this.imageH.content = 'H: ' + post.content;
-          } else if (post.title === 'Vertical image') {
-            this.imageV.source = post.imagePath;
-            this.imageV.content = 'V: ' + post.content;
-          }
-        }
+        this.image2D.source = this.post.img2D;
+        this.image2D.content = '2D: ' + this.post.comment2D;
+        this.imageH.source = this.post.imgH;
+        this.imageH.content = 'H: ' + this.post.commentH;
+        this.imageV.source = this.post.imgV;
+        this.imageV.content = 'V: ' + this.post.commentV;
+
         this.figSumList.push(this.image2D);
         this.figSumList.push(this.imageH);
         this.figSumList.push(this.imageV);
+
+        this.commentAll = this.post.commentAll;
       })
       .catch(error => console.log(error));
   }
