@@ -83,6 +83,39 @@ export class HttpClientService {
       .catch(this.errorHandler);
   }
 
+  public postFluxPar(body: any): Promise<any[]> {
+    return this.http
+      .post(this.host + 'GBS/PostFluxPar', body, this.httpOptions.headers)
+      .toPromise()
+      .then(res => {
+        const response: any = res;
+        return response;
+      })
+      .catch(this.errorHandler);
+  }
+
+  public postPolMeterPar(body: any): Promise<any[]> {
+    return this.http
+      .post(this.host + 'GBS/PostPolMeterPar', body, this.httpOptions.headers)
+      .toPromise()
+      .then(res => {
+        const response: any = res;
+        return response;
+      })
+      .catch(this.errorHandler);
+  }
+
+  public getPolMeterPar(): Promise<any[]> {
+    return this.http
+      .get(this.host + '/GBS/GetPolMeterPar', this.headers)
+      .toPromise()
+      .then(res => {
+        const response: any = res;
+        return response;
+      })
+      .catch(this.errorHandler);
+  }
+
   private errorHandler(err) {
     console.log('Error occured.', err);
     return Promise.reject(err.message || err);

@@ -1,0 +1,169 @@
+<nb-card>
+  <nb-card-header>
+    <h2>Flux monitor parameters</h2>
+  </nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="parForm" (ngSubmit)="onSubmit()">
+      <div>
+        <h4>Signal polarity</h4>
+        <mat-radio-group formControlName="polarity">
+          <mat-radio-button color="primary" [value]="'Negative'">
+            Negative
+          </mat-radio-button>
+          <mat-radio-button color="primary" [value]="'Positive'">
+            Positive
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <hr />
+      <div class="form-group">
+        <h4>DC offset</h4>
+        <mat-form-field class="example-margin">
+          <input
+            matInput
+            type="number"
+            value="{{ this.parForm.value.DCOffset }}"
+            min="0"
+            max="1"
+            step="0.01"
+            formControlName="DCOffset"
+          />
+        </mat-form-field>
+        <mat-slider
+          class="sliderContainer"
+          color="primary"
+          [thumbLabel]="true"
+          min="0"
+          max="1"
+          step="0.01"
+          value="{{ this.parForm.value.DCOffset }}"
+          formControlName="DCOffset"
+        >
+        </mat-slider>
+      </div>
+      <hr />
+      <div class="form-group">
+        <h4>Threshold</h4>
+        <mat-form-field class="example-margin">
+          <input
+            matInput
+            type="number"
+            value="{{ this.parForm.value.threshold }}"
+            min="0"
+            max="5000"
+            step="1"
+            formControlName="threshold"
+          />
+        </mat-form-field>
+        <mat-slider
+          class="sliderContainer"
+          color="primary"
+          [thumbLabel]="true"
+          min="0"
+          max="5000"
+          step="1"
+          value="{{ this.parForm.value.threshold }}"
+          formControlName="threshold"
+        >
+        </mat-slider>
+      </div>
+      <hr />
+      <div class="form-group">
+        <h4>Integral start</h4>
+        <mat-form-field class="example-margin">
+          <input
+            matInput
+            type="number"
+            value="{{ this.parForm.value.start }}"
+            min="0"
+            max="50000"
+            step="1"
+            formControlName="start"
+          />
+        </mat-form-field>
+        <mat-slider
+          class="sliderContainer"
+          color="primary"
+          [thumbLabel]="true"
+          min="0"
+          max="50000"
+          step="1"
+          value="{{ this.parForm.value.start }}"
+          formControlName="start"
+        >
+        </mat-slider>
+      </div>
+      <hr />
+      <div class="form-group">
+        <h4>Integral end</h4>
+        <mat-form-field class="example-margin">
+          <input
+            matInput
+            type="number"
+            value="{{ this.parForm.value.end }}"
+            min="0"
+            max="50000"
+            step="1"
+            formControlName="end"
+          />
+        </mat-form-field>
+        <mat-slider
+          class="sliderContainer"
+          color="primary"
+          [thumbLabel]="true"
+          min="0"
+          max="50000"
+          step="1"
+          value="{{ this.parForm.value.end }}"
+          formControlName="end"
+        >
+        </mat-slider>
+      </div>
+      <hr />
+      <div class="form-group">
+        <h4>Time interval</h4>
+        <mat-form-field class="example-margin">
+          <input
+            matInput
+            type="number"
+            value="{{ this.parForm.value.timeInterval }}"
+            min="0"
+            max="1000"
+            step="1"
+            formControlName="timeInterval"
+          />
+        </mat-form-field>
+        <mat-slider
+          class="sliderContainer"
+          color="primary"
+          [thumbLabel]="true"
+          min="0"
+          max="1000"
+          step="1"
+          value="{{ this.parForm.value.timeInterval }}"
+          formControlName="timeInterval"
+        >
+        </mat-slider>
+      </div>
+      <hr />
+      <h4>Using ch</h4>
+      <mat-form-field>
+        <mat-select formControlName="ch">
+          <mat-option value="0">0</mat-option>
+          <mat-option value="1">1</mat-option>
+          <mat-option value="2">2</mat-option>
+          <mat-option value="3">3</mat-option>
+          <mat-option value="4">4</mat-option>
+          <mat-option value="5">5</mat-option>
+          <mat-option value="6">6</mat-option>
+          <mat-option value="7">7</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <hr />
+
+      <button type="submit" class="btn btn-danger">Submit</button>
+    </form>
+  </nb-card-body>
+</nb-card>
+
+<p>Form Value: {{ parForm.value | json }}</p>

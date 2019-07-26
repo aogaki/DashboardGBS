@@ -41,6 +41,10 @@ export class EnergyComponent implements OnInit, OnDestroy {
       .getEnergy()
       .then(response => {
         this.messageInfoList = response;
+        // MongoDB C++ driver do not allow to use $pair as a key of JSON.
+        // But, ROOT uses such key to create JSON object from histogram.
+        // When I uploading, I replace $ -> aogaki_.
+        // When downloading, I have to replace aogaki_ -> $.  Stupid me :-<
         const result = this.messageInfoList[this.messageInfoList.length - 1][
           'fit'
         ].replace(/aogaki_/g, '$');

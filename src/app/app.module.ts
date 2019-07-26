@@ -15,6 +15,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { ThemeModule } from './@theme/theme.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NbDatepickerModule } from '@nebular/theme';
+import {
+  MatButtonModule,
+  MatCheckboxModule,
+  MatSliderModule,
+  MatRadioModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatSelectModule
+} from '@angular/material';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,6 +33,14 @@ import { NbDatepickerModule } from '@nebular/theme';
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatSliderModule,
+    MatRadioModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatSelectModule,
 
     NgbModule.forRoot(),
     ThemeModule.forRoot(),

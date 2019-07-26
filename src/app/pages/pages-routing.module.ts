@@ -24,6 +24,11 @@ const routes: Routes = [
         component: ImageUploaderComponent
       },
       {
+        path: 'setter',
+        loadChildren:
+          './parameter-setter/parameter-setter.module#ParameterSetterModule'
+      },
+      {
         path: '',
         redirectTo: 'dashboard',
         pathMatch: 'full'
