@@ -1,6 +1,6 @@
-import { Component, OnDestroy } from '@angular/core';
-import { HttpClientService } from '../../../services/http-client.service';
-import { NbThemeService, NbColorHelper } from '@nebular/theme';
+import { Component, OnDestroy } from "@angular/core";
+import { HttpClientService } from "../../../services/http-client.service";
+import { NbThemeService, NbColorHelper } from "@nebular/theme";
 
 interface MessageInfo {
   id: string;
@@ -11,9 +11,9 @@ interface MessageInfo {
 }
 
 @Component({
-  selector: 'ngx-energy-chart',
-  templateUrl: './energy-chart.component.html',
-  styleUrls: ['./energy-chart.component.scss']
+  selector: "ngx-energy-chart",
+  templateUrl: "./energy-chart.component.html",
+  styleUrls: ["./energy-chart.component.scss"]
 })
 export class EnergyChartComponent implements OnDestroy {
   public messageInfoList: MessageInfo[] = [];
@@ -22,10 +22,10 @@ export class EnergyChartComponent implements OnDestroy {
   themeSubscription: any;
 
   GetTime(time: Date): string {
-    let h = ('00' + time.getHours()).slice(-2);
-    let m = ('00' + time.getMinutes()).slice(-2);
+    let h = ("00" + time.getHours()).slice(-2);
+    let m = ("00" + time.getMinutes()).slice(-2);
 
-    return h + ':' + m;
+    return h + ":" + m;
   }
 
   constructor(
@@ -33,7 +33,7 @@ export class EnergyChartComponent implements OnDestroy {
     private theme: NbThemeService
   ) {
     this.httpClientService
-      .getEnergy()
+      .getEnergyList()
       .then(response => {
         this.messageInfoList = response;
 
@@ -49,15 +49,15 @@ export class EnergyChartComponent implements OnDestroy {
           index++
         ) {
           let time = this.GetTime(
-            new Date(Number(this.messageInfoList[index]['time']) * 1000)
+            new Date(Number(this.messageInfoList[index]["time"]) * 1000)
           );
           timeData.push(time);
 
-          countData.push(this.messageInfoList[index]['mean']);
+          countData.push(this.messageInfoList[index]["mean"]);
 
-          let fwhm = Number(this.messageInfoList[index]['fwhm']) / 2;
+          let fwhm = Number(this.messageInfoList[index]["fwhm"]) / 2;
           let error =
-            time + ': { plus:' + fwhm / 2 + ', minus: ' + -fwhm / 2 + '}';
+            time + ": { plus:" + fwhm / 2 + ", minus: " + -fwhm / 2 + "}";
           errBarData.push(error);
         }
 
@@ -73,7 +73,7 @@ export class EnergyChartComponent implements OnDestroy {
               {
                 data: countData,
                 errorBars: errBarData,
-                label: 'Photopeak',
+                label: "Photopeak",
                 backgroundColor: NbColorHelper.hexToRgbA(colors.danger, 0.3),
                 borderColor: colors.danger
               }
@@ -106,7 +106,7 @@ export class EnergyChartComponent implements OnDestroy {
                   },
                   scaleLabel: {
                     display: true,
-                    labelString: 'Photopeak [MeV]'
+                    labelString: "Photopeak [MeV]"
                   }
                 }
               ]

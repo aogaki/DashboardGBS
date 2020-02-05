@@ -9,7 +9,8 @@ import {
   MatRadioModule,
   MatFormFieldModule,
   MatInputModule,
-  MatSelectModule
+  MatSelectModule,
+  MatButtonModule
 } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PolarimeterParameterComponent } from './polarimeter-parameter/polarimeter-parameter.component';
@@ -23,6 +24,7 @@ const components = [ParameterSetterComponent, FluxParameterComponent];
     ThemeModule,
     ParameterSetterRoutingModule,
     MatSliderModule,
+    MatButtonModule,
     MatRadioModule,
     MatFormFieldModule,
     ReactiveFormsModule,

@@ -1,6 +1,6 @@
-import { Component, OnDestroy } from '@angular/core';
-import { HttpClientService } from '../../../services/http-client.service';
-import { NbThemeService, NbColorHelper } from '@nebular/theme';
+import { Component, OnDestroy } from "@angular/core";
+import { HttpClientService } from "../../../services/http-client.service";
+import { NbThemeService, NbColorHelper } from "@nebular/theme";
 
 interface MessageInfo {
   id: string;
@@ -10,9 +10,9 @@ interface MessageInfo {
 }
 
 @Component({
-  selector: 'ngx-flux-chart',
-  templateUrl: './flux-chart.component.html',
-  styleUrls: ['./flux-chart.component.scss']
+  selector: "ngx-flux-chart",
+  templateUrl: "./flux-chart.component.html",
+  styleUrls: ["./flux-chart.component.scss"]
 })
 export class FluxChartComponent implements OnDestroy {
   public messageInfoList: MessageInfo[] = [];
@@ -22,10 +22,10 @@ export class FluxChartComponent implements OnDestroy {
   themeSubscription: any;
 
   GetTime(time: Date): string {
-    let h = ('00' + time.getHours()).slice(-2);
-    let m = ('00' + time.getMinutes()).slice(-2);
+    let h = ("00" + time.getHours()).slice(-2);
+    let m = ("00" + time.getMinutes()).slice(-2);
 
-    return h + ':' + m;
+    return h + ":" + m;
   }
 
   constructor(
@@ -33,7 +33,7 @@ export class FluxChartComponent implements OnDestroy {
     private theme: NbThemeService
   ) {
     this.httpClientService
-      .getFlux()
+      .getFluxList()
       .then(response => {
         this.messageInfoList = response;
 
@@ -48,10 +48,10 @@ export class FluxChartComponent implements OnDestroy {
         ) {
           timeData.push(
             this.GetTime(
-              new Date(Number(this.messageInfoList[index]['time']) * 1000)
+              new Date(Number(this.messageInfoList[index]["time"]) * 1000)
             )
           );
-          countData.push(this.messageInfoList[index]['count']);
+          countData.push(this.messageInfoList[index]["count"]);
         }
 
         this.themeSubscription = this.theme.getJsTheme().subscribe(config => {
@@ -63,7 +63,7 @@ export class FluxChartComponent implements OnDestroy {
             datasets: [
               {
                 data: countData,
-                label: 'Number of hit',
+                label: "Number of hit",
                 backgroundColor: NbColorHelper.hexToRgbA(colors.primary, 0.3),
                 borderColor: colors.primary
               }

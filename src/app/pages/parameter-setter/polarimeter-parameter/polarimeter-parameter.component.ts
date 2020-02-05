@@ -1,11 +1,13 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { HttpClientService } from '../../../services/http-client.service';
+import { PolMeterPar } from '../../../classes/api';
 
 interface par {
   polarity: String;
   DCOffset: String;
   threshold: String;
+  CFDThreshold: String;
   timeInterval: String;
   inCh: String;
   outCh1: String;
@@ -25,8 +27,9 @@ export class PolarimeterParameterComponent implements OnInit {
     polarity: ['Negative'],
     DCOffset: 0.1,
     threshold: 500,
+    CFDThreshold: 25,
     timeInterval: 500,
-    inCh: 0,
+    inCh: 5,
     outCh1: 1,
     outCh2: 2,
     beamCh: 3,
@@ -42,6 +45,7 @@ export class PolarimeterParameterComponent implements OnInit {
     private cdRef: ChangeDetectorRef
   ) {
     let parList: par[] = [];
+    console.log(this.httpClientService.getTestData());
     this.httpClientService
       .getPolMeterPar()
       .then(response => {
@@ -49,6 +53,13 @@ export class PolarimeterParameterComponent implements OnInit {
         this.parForm.value.inCh = Number(parList[0]['inCh']);
       })
       .catch(error => console.log(error));
+
+    this.httpClientService
+      .getPolMeterParTest()
+      .subscribe((data: PolMeterPar[]) => {
+        this.parForm.value.inCh = Number(data[0]['inCh']);
+        console.log(data[0]);
+      });
   }
 
   ngOnInit() {}
@@ -58,6 +69,7 @@ export class PolarimeterParameterComponent implements OnInit {
       polarity: String(this.parForm.value.polarity),
       DCOffset: String(this.parForm.value.DCOffset),
       threshold: String(this.parForm.value.threshold),
+      CFDThreshold: String(this.parForm.value.CFDThreshold),
       timeInterval: String(this.parForm.value.timeInterval),
       inCh: String(this.parForm.value.inCh),
       outCh1: String(this.parForm.value.outCh1),

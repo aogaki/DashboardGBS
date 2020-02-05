@@ -1,14 +1,14 @@
-import { Component, OnDestroy } from '@angular/core';
-import { HttpClientService } from '../../../services/http-client.service';
-import { NbThemeService } from '@nebular/theme';
-import { combineAll } from 'rxjs/operators';
+import { Component, OnDestroy } from "@angular/core";
+import { HttpClientService } from "../../../services/http-client.service";
+import { NbThemeService } from "@nebular/theme";
+import { combineAll } from "rxjs/operators";
 
 class PosImage {
   source: string;
   content: string;
 }
 
-export interface Post {
+interface Position {
   id: string;
   img2D: string;
   comment2D: string;
@@ -20,13 +20,13 @@ export interface Post {
 }
 
 @Component({
-  selector: 'ngx-position',
-  templateUrl: './position.component.html',
-  styleUrls: ['./position.component.scss']
+  selector: "ngx-position",
+  templateUrl: "./position.component.html",
+  styleUrls: ["./position.component.scss"]
 })
 export class PositionComponent implements OnDestroy {
   // Hmm Looks stupid
-  private post: Post;
+  private message: Position;
   private image2D: PosImage;
   private imageH: PosImage;
   private imageV: PosImage;
@@ -49,24 +49,24 @@ export class PositionComponent implements OnDestroy {
     this.httpClientService
       .getPosition()
       .then(response => {
-        this.post = response[response.length - 1];
+        this.message = response;
 
         this.image2D = new PosImage();
         this.imageH = new PosImage();
         this.imageV = new PosImage();
 
-        this.image2D.source = this.post.img2D;
-        this.image2D.content = '2D: ' + this.post.comment2D;
-        this.imageH.source = this.post.imgH;
-        this.imageH.content = 'H: ' + this.post.commentH;
-        this.imageV.source = this.post.imgV;
-        this.imageV.content = 'V: ' + this.post.commentV;
+        this.image2D.source = this.message.img2D;
+        this.image2D.content = "2D: " + this.message.comment2D;
+        this.imageH.source = this.message.imgH;
+        this.imageH.content = "H: " + this.message.commentH;
+        this.imageV.source = this.message.imgV;
+        this.imageV.content = "V: " + this.message.commentV;
 
         this.figSumList.push(this.image2D);
         this.figSumList.push(this.imageH);
         this.figSumList.push(this.imageV);
 
-        this.commentAll = this.post.commentAll;
+        this.commentAll = this.message.commentAll;
       })
       .catch(error => console.log(error));
   }

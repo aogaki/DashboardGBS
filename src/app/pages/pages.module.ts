@@ -8,6 +8,7 @@ import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
 import { LogFormComponent } from './log-form/log-form.component';
 import { ImageUploaderComponent } from './image-uploader/image-uploader.component';
 import { NbDatepickerModule } from '@nebular/theme';
+import { MatButtonModule } from '@angular/material';
 
 const PAGES_COMPONENTS = [PagesComponent];
 
@@ -16,6 +17,7 @@ const PAGES_COMPONENTS = [PagesComponent];
     PagesRoutingModule,
     ThemeModule,
     DashboardModule,
+    MatButtonModule,
     MiscellaneousModule,
     NbDatepickerModule
   ],
